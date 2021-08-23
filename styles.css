@@ -15,6 +15,7 @@ body {
     margin-top: 10px;
     color: var(--text-color);
     max-width: 1000px;
+    min-width: 480px;
     font-size: large;
     background-image: url('./images/background.svg');
     background-attachment: fixed;
@@ -33,12 +34,12 @@ hr {
 /** container **/
 
 .container {
-    padding: 0rem 1rem;}
+    padding: 0rem 1rem;
+}
 
 .container-center {
     max-width: 600px;
     margin: auto;
-    
 }
 
 /** links **/
@@ -82,11 +83,14 @@ hr {
 }
 
 .list-item {
-    font-weight: bold;    
+    font-weight: bold;
 }
 
-li{
-   margin: 10px; 
+li {
+    margin: 10px;
+    width: 80%;
+    margin: auto;
+    margin-top: 10px;
 }
 
 /** navigation **/
@@ -96,7 +100,6 @@ li{
     padding: 1rem;
     border-bottom-left-radius: 1rem;
     border: 1px solid var(--primary-color);
-    
 }
 
 .navigation .nav-brand {
@@ -128,7 +131,6 @@ li{
 .hero {
     padding: 2rem;
     padding-top: 5rem;
-    
 }
 
 .hero .hero-img {
@@ -165,7 +167,7 @@ li{
     color: white;
 }
 
-.section hr{
+.section hr {
     width: 100px;
     color: var(--primary-color);
     margin: auto;
@@ -204,19 +206,19 @@ li{
 /** projects **/
 
 .showcase-list {
-    padding: 2rem;
+    padding: 10px
 }
 
 .showcase-list>h1 {
     color: white;
 }
 
-.b{
+.b {
     background-color: var(--secondary-color);
     border-radius: 10px;
 }
 
-.showcase-list hr{
+.showcase-list hr {
     width: 100px;
 }
 
@@ -225,8 +227,9 @@ li{
 .showcase-blog {
     padding: 2rem;
     background-color: var(--secondary-color);
-    width: max-content;
     border-radius: 10px;
+    min-width: 80%;
+    margin: auto;
 }
 
 .more {
@@ -264,15 +267,21 @@ li{
     border-radius: 5px;
 }
 
-.footer hr{
+.footer hr {
     width: 100px;
     margin: auto;
     margin-bottom: 20px;
 }
 
-.li-img-logo{
+.li-img-logo {
     max-width: 25px;
     width: 25px;
     margin-right: 20px;
 }
 
+.neog{
+    color: var(--primary-color);
+    font-style: italic;
+    margin-bottom: 10px;
+    font-weight: bolder;
+}
