@@ -31,125 +31,152 @@
     </header>
 
     <article class="container-center showcase-blog">
-        <p>
-            Hi Folks,
-            <br />
-            <br />
+        Hi Folks,
+        <br />
+        <p class="blog-p">
+
             In this blog section, we will see How to create a Translator app using external API from
-            <a class="link link-active" href="https://funtranslations.com/api/">https://funtranslations.com/api/</a>. I will be using Minion
-            translator API. But you can take any API you like.
+            <a class="link link-active" href="https://funtranslations.com/api/">https://funtranslations.com/api/</a> I
+            will be using <i><b>Minion
+                    translator</b></i> API. But you can take any API you like.
             <br />
             <br />
-            So, let’s get started.
+        <p class="blog-p">So, let’s get started.</p>
 
         </p>
 
         <h2>Basic Setup</h2>
-        <p>
-            We will need following files in VS Code or any Code editor of your choice.
+        <p class="blog-p">
+            We will need following files in <i><b>VS Code</b></i> or any Code editor of your choice.
         <ul>
-            <li>Index.html – Main HTML file</li>
-            <li>Script.js – all JavaScript code will go here</li>
-            <li>Style.css – all styling will be done here</li>
+            <li><b>Index.html</b> – Main HTML file.</li>
+            <li><b>Script.js</b> – All JavaScript code will go here.</li>
+            <li><b>Style.css</b> – All styling will be done here.</li>
         </ul>
         </p>
 
 
         <h2>Creating Frontend</h2>
-        <p>
-            We will create following components in our frontend UI.
+        <p class="blog-p">
+            We will create following components in our Frontend UI.
         <ul>
-            <li>Header – displays title of app</li>
+            <li><b>Header</b> – Displays title of app.</li>
             <div class="code">
-            <xmp>
-<div class="header">
-    <h1>Talk Banana</h1>
-</div>
-            </xmp>
+                <pre>
+            <code>
+                
+<span><</span>div class="header">
+    <span><</span>h1>Talk Banana<span><</span>/h1>
+<span><</span>/div>
+        
+</code>
+</pre>
             </div>
-            <li>Input text area – takes input from user</li>
+            <li><b>Input Textarea</b> – Takes input from user.</li>
             <div class="code">
-            <xmp>
-<textarea id="txt-input" 
-placeholder="Enter text in English 
-and we will convert it into Banana 
-language.">
-</textarea>
-            </xmp>
+
+                <code>
+                    <pre>
+                        
+<span><</span>textarea id="txt-input" 
+    placeholder="Enter text in 
+    English and we will convert 
+    it into Banana language.">
+<span><</span>/textarea>
+                 
+                    </pre>
+                </code>
             </div>
-            <li>Translate button – translates user input text into Banana language</li>
+            <li><b>Translate button</b> – Translates user input text into Banana language.</li>
             <div class="code">
-            <xmp>
-<div>
-    <button id="btn-translate" 
+                <pre>
+                <code>
+<span><</span>div>
+    <span><</span>button id="btn-translate" 
     type="submit">Translate
-    </button>
-</div>      
-            </xmp>
+    <span><</span>/button>
+<span><</span>/div>      
+                </code>
+                </pre>
             </div>
-            <li>Output div – shows translated text</li>
+            <li><b>Output Div</b> – Shows translated text.</li>
             <div class="code">
-            <xmp>
-<div style="font-size: larger;">
+                <pre>
+                <code>
+<span><</span>div style="font-size: larger;">
     Translation will come here 👇
-</div>
-<div id="txt-output"></div>                          
-            </xmp>
+<span><</span>/div>
+<span><</span>div id="txt-output"><span><</span>/div>                          
+                </code>
+                </pre>
             </div>
-            <li>Footer – displays some information about app</li>
+            <li><b>Footer</b> – Displays some information about app.</li>
             <div class="code">
-            <xmp>
-<div style="font-size: larger;">
-    <div class="footer-content">
-        Are you a fan of minions? Did you know that the 
-        gibberish they say is an actual language. Use the
-        translator to convert your text from English to 
+                <pre>
+                <code>
+<span><</span>div style="font-size: larger">
+    <span><</span>div class="footer-content">
+        Are you a fan of minions? Did you 
+        know that the 
+        gibberish they say is an actual 
+        language. Use the
+        translator to convert your text 
+        from English to 
         Minion speak or Banana language.
-</div>
-</div>          
-            </xmp>
+    <span><</span>/div>
+<span><</span>/div>          
+                </code>
+                </pre>
             </div>
         </ul>
         </p>
         <h2>Writing JavaScript</h2>
-        <p>
-            First, we will wire Textarea, Button and Output-Div to JavaScript with help of .querySelector() method. This method binds DOM (Document Object Model) elements with JavaScript.
+        <p class="blog-p">
+            First, we will wire Textarea, Button and Output-Div to JavaScript with help of
+            <b><i>.querySelector()</i></b> method. This method binds DOM (Document Object Model) elements with
+            JavaScript.
         </p>
         <div class="code">
-            <xmp>
-var btnTranslate = document.querySelector("#btn-translate");
-var textInput = document.querySelector("#txt-input");
-var textOutput = document.querySelector("#txt-output");
-        </xmp>
+            <pre><code>
+var btnTranslate = document
+            .querySelector("#btn-translate");
+var textInput = document
+            .querySelector("#txt-input");
+var textOutput = document
+            .querySelector("#txt-output");
+        </code></pre>
         </div>
-        <p>
-            Next, We obtain the API call method and URL from documentation of chosen API from <a href="https://funtranslations.com/api/">https://funtranslations.com/api/</a>
+        <p class="blog-p">
+            Next, We obtain the API call method and URL from documentation of chosen API from <a
+                href="https://funtranslations.com/api/">https://funtranslations.com/api/</a>
         </p>
         <div class="code">
-            <xmp>
+            <pre><code>
 var serverUrl = 
-    "https://api.funtranslations.com/translate/minion.json";
+    "https://api.funtranslations.com/translate
+    /minion.json";
 
 function generateUrl(text) {
     return serverUrl + "?text=" + text;
 }                
-        </xmp>
+        </code></pre>
         </div>
-        <p>
-        Here, function generateUrl() gets some text and appends it to form the API call URL of Translation.
-        <br>
-        <br>
-        Next, we will create clickHandler() for Translate Button. Hence, whenever the Button is clicked, our desired function will be processed.
+        <p class="blog-p">
+            Here, function generateUrl() gets some text and appends it to form the API call URL of Translation.</p>
+        <p class="blog-p">
+            Next, we will create clickHandler() for Translate Button. Hence, whenever the Button is clicked, our desired
+            function will be processed.
         </p>
         <div class="code">
-            <xmp>
+            <pre><code>
 function clickHandler() {
     var inputText = textInput.value;
 
     fetch(generateUrl(inputText))
         .then(response => response.json())
             .then(json => {
-        var translatedText = json.contents.translated;
+        var translatedText = json.contents
+                                .translated;
         textOutput.innerHTML = translatedText;
     }).catch(errorHandler)
 }
@@ -157,31 +184,43 @@ function clickHandler() {
 function errorHandler(error) {
     console.log("Error Occured : " + error);
 }                   
-        </xmp>
+        </code></pre>
         </div>
-        <p>
-            Here, inputText gets the text entered in Textarea by user with the help of querySelector wiring.<br>
-            Next is the ”fetch” method which fetches the response from URL generated by generator function. This response is converted to JSON (Java Script Object Notion) format by using .json() method. Then translated text is retrieved from this json object and set to Output-Div by using .innerHTML attribute.<br>
-            Also, during API call, if any error occurs, then that error will be logged on console by .catch() handler.
-            <br><br>
-            Lastly, this clickHandler() function is binded to Button with help of .addEventListner() method.
+        <p class="blog-p">
+            Here, inputText gets the text entered in Textarea by user with the help of querySelector wiring.
+        <p class="blog-p">
+            Next is the <b><i>fetch</i></b> method which fetches the response from URL generated by generator function.
+            This response is converted to <b><i>JSON</i></b> (Java Script Object Notion) format by using .json() method.
+            Then translated text is retrieved from this json object and set to Output-Div by using
+            <b><i>.innerHTML</i></b> attribute.
+        </p>
+        <p class="blog-p">Also, during API call, if any error occurs, then that error will be logged on console by
+            <b><i>.catch()</i></b> handler.
+        </p>
+        <p class="blog-p">
+            Lastly, this clickHandler() function is binded to Button with help of <b><i>.addEventListner()</i></b>
+            method.
+        </p>
         </p>
         <div class="code">
-        <xmp>
+            <pre><code>
     btnTranslate.addEventListener("click", clickHandler);                  
-        </xmp>
+        </code></pre>
         </div>
-        <p>
-            Now, JavaScript will know that it has to run clickHandler() function every time it listens a click on Button.
+        <p class="blog-p">
+            Now, JavaScript will know that it has to run clickHandler() function every time it listens a click on
+            Button.
         </p>
         <h2>
             Create Styling
         </h2>
-        <p>
-            Understanding styling of CSS is far wide beyond the scope of this Blog. So, I leave it up to you. One can create a beautiful app by using CSS styling. There is no limit to it. Therefor I am adding my CSS code here for your Reference
+        <p class="blog-p">
+            Understanding styling of CSS is far wide beyond the scope of this Blog. So, I leave it up to you. One can
+            create a beautiful app by using CSS styling. There is no limit to it. Therefor I am adding my CSS code here
+            for your Reference
         </p>
         <div class="code">
-            <xmp>
+            <pre><code>
 * {
     box-sizing: border-box;
     max-width: 600px;
@@ -279,13 +318,14 @@ textarea {
 .footer-content{
     font-size: 20px;
 }                        
-            </xmp>
-            </div>
-            <p>
-                <h4>
-                    You can check out whole code on my <a target="_blank" href="https://github.com/maharshimaniar/NEOG-LevelZero-bananaSpeak">GitHub.</a>
-                </h4>
-            </p>
+            </code></pre>
+        </div>
+        <p class="blog-p">
+        <h4>
+            You can check out whole code on my <a target="_blank"
+                href="https://github.com/maharshimaniar/NEOG-LevelZero-bananaSpeak">GitHub.</a>
+        </h4>
+        </p>
     </article>
 
 
