@@ -27,7 +27,7 @@
     <a class="back" href="/blogs.html"><img class="back-image" src="/images/back-button.png"></a>
 
     <header class="hero">
-        <h1 class="hero-heading">Minion Speak: A fun <span class="heading-inverted">API based </span> Translator</h1>
+        <h1 class="hero-heading">Lucky <span class="heading-inverted">Birthday</span></h1>
     </header>
     <section>
         <article class="container-center showcase-blog">
@@ -35,11 +35,9 @@
             <br />
             <p class="blog-p">
 
-                In this blog section, we will see How to create a Translator app using external API from
-                <a class="link link-active" href="https://funtranslations.com/api/">https://funtranslations.com/api/</a>
-                I
-                will be using <i><b>Minion
-                        translator</b></i> API. But you can take any API you like.
+                In this blog section, we will see How to create a Birthdate app using Date Dropdown. This app will take
+                user's Birthdate and A Lucky number as input. And if sum of each nu,ber of Birthdate is divisible by
+                Lucky number, Then Birthdate is Lucky else Unlucky.
                 <br />
                 <br />
             <p class="blog-p">So, let’s get started.</p>
@@ -67,65 +65,48 @@
             <code>
                 
 <span><</span>div class="header">
-    <span><</span>h1>Talk Banana<span><</span>/h1>
+    <span><</span>h1>Lucky Birthdate<span><</span>/h1>
 <span><</span>/div>
         
 </code>
 </pre>
                 </div>
-                <li><b>Input Textarea</b> – Takes input from user.</li>
+                <li><b>Input Birthdate Dropdown</b> – Takes input Birthdate from user.</li>
                 <div class="code">
 
                     <code>
                     <pre>
-                        
-<span><</span>textarea id="txt-input" 
-    placeholder="Enter text in 
-    English and we will convert 
-    it into Banana language.">
-<span><</span>/textarea>
-                 
+<span><</span>label for="date-of-birth">Date Of Birth:<span><</span>/label>
+<span><</span>input type="date" id="date-of-birth" />                 
                     </pre>
                 </code>
                 </div>
-                <li><b>Translate button</b> – Translates user input text into Banana language.</li>
+
+                <li><b>Input Lucky Number Dropdown</b> – Takes input Lucky Number from user.</li>
+                <div class="code">
+
+                    <code>
+                    <pre>
+<span><</span>label for="lucky-number">Lucky Number:<span><</span>/label>
+<span><</span>input type="number" id="lucky-number" 
+placeholder="Enter a number" />             
+                    </pre>
+                </code>
+                </div>
+
+                <li><b>Check button</b> – Check user's Birthdate is Lucky or not.</li>
                 <div class="code">
                     <pre>
                 <code>
-<span><</span>div>
-    <span><</span>button id="btn-translate" 
-    type="submit">Translate
-    <span><</span>/button>
-<span><</span>/div>      
+<span><</span>button id="calculate-number">Check Number<span><</span>/button>   
                 </code>
                 </pre>
                 </div>
-                <li><b>Output Div</b> – Shows translated text.</li>
+                <li><b>Output Div</b> – Shows Output text.</li>
                 <div class="code">
                     <pre>
                 <code>
-<span><</span>div style="font-size: larger;">
-    Translation will come here 👇
-<span><</span>/div>
-<span><</span>div id="txt-output"><span><</span>/div>                          
-                </code>
-                </pre>
-                </div>
-                <li><b>Footer</b> – Displays some information about app.</li>
-                <div class="code">
-                    <pre>
-                <code>
-<span><</span>div style="font-size: larger">
-    <span><</span>div class="footer-content">
-        Are you a fan of minions? Did you 
-        know that the 
-        gibberish they say is an actual 
-        language. Use the
-        translator to convert your text 
-        from English to 
-        Minion speak or Banana language.
-    <span><</span>/div>
-<span><</span>/div>          
+<span><</span>p id="output-container"><span><</span>/p>                         
                 </code>
                 </pre>
                 </div>
@@ -133,86 +114,81 @@
             </p>
             <h2>Writing JavaScript</h2>
             <p class="blog-p">
-                First, we will wire Textarea, Button and Output-Div to JavaScript with help of
+                First, we will wire Inputs, Button and Output-Div to JavaScript with help of
                 <b><i>.querySelector()</i></b> method. This method binds DOM (Document Object Model) elements with
                 JavaScript.
             </p>
             <div class="code">
                 <pre><code>
-var btnTranslate = document
-            .querySelector("#btn-translate");
-var textInput = document
-            .querySelector("#txt-input");
-var textOutput = document
-            .querySelector("#txt-output");
+const dateOfBirth = document
+                    .querySelector("#date-of-birth");
+const luckyNumber = document
+                    .querySelector("#lucky-number");
+const checkButton = document
+                    .querySelector("#calculate-number");
+const displayMessage = document
+                    .querySelector("#output-container");
         </code></pre>
             </div>
             <p class="blog-p">
-                Next, We obtain the API call method and URL from documentation of chosen API from <a
-                    href="https://funtranslations.com/api/">https://funtranslations.com/api/</a>
+                Next, We obtain the Sum of all Digits of Date. Here we have used In-Line function.
             </p>
             <div class="code">
                 <pre><code>
-var serverUrl = 
-    "https://api.funtranslations.com/translate
-    /minion.json";
-
-function generateUrl(text) {
-    return serverUrl + "?text=" + text;
-}                
+const calculateSum = (date) => {
+    let sum = 0;
+    date = date.replaceAll("-", "");
+    for (let digit of date) {
+        sum = sum + Number(digit);
+    }
+    return sum;
+    };            
         </code></pre>
             </div>
             <p class="blog-p">
-                Here, function generateUrl() gets some text and appends it to form the API call URL of Translation.</p>
+                In this, <b><i>.replaceAll()</i></b> method replaces all '-' in date string. Then the for loop
+                typecastes each character into Number and adds it to sum variable. And at last this sum is reaturned.
+            </p>
             <p class="blog-p">
-                Next, we will create clickHandler() for Translate Button. Hence, whenever the Button is clicked, our
-                desired
-                function will be processed.
+                Next, we will check if sum is divisible by Lucky number or not. Here also we will use Inline function.
+                Here <b><i>showMessage</i></b> is a functon, which will take an Input message and sets it as Output-Div
+                with help of <b><i>.innerHTML()</i></b> method.
             </p>
             <div class="code">
                 <pre><code>
-function clickHandler() {
-    var inputText = textInput.value;
+const checkIsNumberLucky = (sumOfDate, numberToCheck) => {
+    if (sumOfDate % numberToCheck === 0) {
+        return showMessage(`${numberToCheck} is a Lucky number!! 🤩 `);
+    }
+    showMessage(`${numberToCheck} is not so Lucky 🤷‍♂️🤦‍♀️`);
+};  
 
-    fetch(generateUrl(inputText))
-        .then(response => response.json())
-            .then(json => {
-        var translatedText = json.contents
-                                .translated;
-        textOutput.innerHTML = translatedText;
-    }).catch(errorHandler)
-}
-
-function errorHandler(error) {
-    console.log("Error Occured : " + error);
-}                   
+const showMessage = (message) => {
+    displayMessage.innerText = message;
+};                  
         </code></pre>
             </div>
             <p class="blog-p">
-                Here, inputText gets the text entered in Textarea by user with the help of querySelector wiring.
-            <p class="blog-p">
-                Next is the <b><i>fetch</i></b> method which fetches the response from URL generated by generator
-                function.
-                This response is converted to <b><i>JSON</i></b> (Java Script Object Notion) format by using .json()
-                method.
-                Then translated text is retrieved from this json object and set to Output-Div by using
-                <b><i>.innerHTML</i></b> attribute.
-            </p>
-            <p class="blog-p">Also, during API call, if any error occurs, then that error will be logged on console by
-                <b><i>.catch()</i></b> handler.
-            </p>
-            <p class="blog-p">
-                Lastly, this clickHandler() function is binded to Button with help of <b><i>.addEventListner()</i></b>
-                method.
+                Lastly, the button click mechanism is binded to Button with help of <b><i>.addEventListner()</i></b>
+                method. If any input field is missing, then eror message will be shown with help of <b><i>showMessage()</i></b> function. Else, first <b><i>sumOfDate()</i></b> and<b><i>checkIsNumberLucky()</i></b> functions will be invoked.
             </p>
             </p>
             <div class="code">
                 <pre><code>
-    btnTranslate.addEventListener("click", clickHandler);                  
+checkButton.addEventListener("click", () => {
+    const date = dateOfBirth.value;
+    const numberToCheck = luckyNumber.value;
+    if (date && numberToCheck) {
+        const sumOfDate = calculateSum(date);
+        checkIsNumberLucky(sumOfDate, numberToCheck);
+    } else {
+        showMessage("Please enter both the fields");
+    }
+});                
         </code></pre>
             </div>
             <p class="blog-p">
-                Now, JavaScript will know that it has to run clickHandler() function every time it listens a click on
+                Now, JavaScript will know that it has to run anonymous function every time it listens a click on
                 Button.
             </p>
             <h2>
@@ -329,7 +305,7 @@ textarea {
             <p class="blog-p">
             <h4>
                 You can check out whole code on my <a target="_blank"
-                    href="https://github.com/maharshimaniar/NEOG-LevelZero-bananaSpeak">GitHub.</a>
+                    href="https://github.com/maharshimaniar/NEOG-LevelZero-luckyBirthday">GitHub.</a>
             </h4>
             </p>
         </article>
@@ -362,7 +338,5 @@ textarea {
     </footer>
 
     <script src="script.js"></script>
-    
 </body>
-
 </html>
