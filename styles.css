@@ -285,3 +285,35 @@ li {
     margin-bottom: 10px;
     font-weight: bolder;
 }
+
+.code{
+    margin: auto;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: black;
+    font-size: 20px;
+    color: var(--primary-color);
+    border-radius: 10px;
+}
+
+xmp{
+    width: min-content;
+    margin: auto;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    min-width: fit-content;
+}
+
+article > p{
+    text-indent: 5rem;
+}
+
+article > p > a{
+    color: var(--primary-color);
+}
+
+article > h4 > a{
+    color: var(--primary-color);
+}
+
+

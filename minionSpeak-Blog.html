@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="styles.css" rel="stylesheet" />
+    <title>Blogs | MaharshiCodes</title>
+</head>
+
+<body>
+    <nav class="navigation container">
+        <div class="nav-brand"><a class="link" href="/">Maharshi Codes</a></div>
+        <ul class="list-non-bullet nav-pills">
+            <li class="list-item-inline">
+                <a class="link" href="/">Home</a>
+            </li> |
+            <li class="list-item-inline">
+                <a class="link" href="/projects.html">Projects</a>
+            </li> |
+            <li class="list-item-inline">
+                <a class="link link-active" href="/blogs.html">Blogs</a>
+            </li>
+        </ul>
+    </nav>
+
+    <a class="back" href="/blogs.html"><img class="back-image" src="/images/back-button.png"></a>
+
+    <header class="hero">
+        <h1 class="hero-heading">Minion Speak: A fun <span class="heading-inverted">API based </span> Translator</h1>
+    </header>
+
+    <article class="container-center showcase-blog">
+        <p>
+            Hi Folks,
+            <br />
+            <br />
+            In this blog section, we will see How to create a Translator app using external API from
+            <a class="link link-active" href="https://funtranslations.com/api/">https://funtranslations.com/api/</a>. I will be using Minion
+            translator API. But you can take any API you like.
+            <br />
+            <br />
+            So, let’s get started.
+
+        </p>
+
+        <h2>Basic Setup</h2>
+        <p>
+            We will need following files in VS Code or any Code editor of your choice.
+        <ul>
+            <li>Index.html – Main HTML file</li>
+            <li>Script.js – all JavaScript code will go here</li>
+            <li>Style.css – all styling will be done here</li>
+        </ul>
+        </p>
+
+
+        <h2>Creating Frontend</h2>
+        <p>
+            We will create following components in our frontend UI.
+        <ul>
+            <li>Header – displays title of app</li>
+            <div class="code">
+            <xmp>
+<div class="header">
+    <h1>Talk Banana</h1>
+</div>
+            </xmp>
+            </div>
+            <li>Input text area – takes input from user</li>
+            <div class="code">
+            <xmp>
+<textarea id="txt-input" 
+placeholder="Enter text in English 
+and we will convert it into Banana 
+language.">
+</textarea>
+            </xmp>
+            </div>
+            <li>Translate button – translates user input text into Banana language</li>
+            <div class="code">
+            <xmp>
+<div>
+    <button id="btn-translate" 
+    type="submit">Translate
+    </button>
+</div>      
+            </xmp>
+            </div>
+            <li>Output div – shows translated text</li>
+            <div class="code">
+            <xmp>
+<div style="font-size: larger;">
+    Translation will come here 👇
+</div>
+<div id="txt-output"></div>                          
+            </xmp>
+            </div>
+            <li>Footer – displays some information about app</li>
+            <div class="code">
+            <xmp>
+<div style="font-size: larger;">
+    <div class="footer-content">
+        Are you a fan of minions? Did you know that the 
+        gibberish they say is an actual language. Use the
+        translator to convert your text from English to 
+        Minion speak or Banana language.
+</div>
+</div>          
+            </xmp>
+            </div>
+        </ul>
+        </p>
+        <h2>Writing JavaScript</h2>
+        <p>
+            First, we will wire Textarea, Button and Output-Div to JavaScript with help of .querySelector() method. This method binds DOM (Document Object Model) elements with JavaScript.
+        </p>
+        <div class="code">
+            <xmp>
+var btnTranslate = document.querySelector("#btn-translate");
+var textInput = document.querySelector("#txt-input");
+var textOutput = document.querySelector("#txt-output");
+        </xmp>
+        </div>
+        <p>
+            Next, We obtain the API call method and URL from documentation of chosen API from <a href="https://funtranslations.com/api/">https://funtranslations.com/api/</a>
+        </p>
+        <div class="code">
+            <xmp>
+var serverUrl = 
+    "https://api.funtranslations.com/translate/minion.json";
+
+function generateUrl(text) {
+    return serverUrl + "?text=" + text;
+}                
+        </xmp>
+        </div>
+        <p>
+        Here, function generateUrl() gets some text and appends it to form the API call URL of Translation.
+        <br>
+        <br>
+        Next, we will create clickHandler() for Translate Button. Hence, whenever the Button is clicked, our desired function will be processed.
+        </p>
+        <div class="code">
+            <xmp>
+function clickHandler() {
+    var inputText = textInput.value;
+
+    fetch(generateUrl(inputText))
+        .then(response => response.json())
+            .then(json => {
+        var translatedText = json.contents.translated;
+        textOutput.innerHTML = translatedText;
+    }).catch(errorHandler)
+}
+
+function errorHandler(error) {
+    console.log("Error Occured : " + error);
+}                   
+        </xmp>
+        </div>
+        <p>
+            Here, inputText gets the text entered in Textarea by user with the help of querySelector wiring.<br>
+            Next is the ”fetch” method which fetches the response from URL generated by generator function. This response is converted to JSON (Java Script Object Notion) format by using .json() method. Then translated text is retrieved from this json object and set to Output-Div by using .innerHTML attribute.<br>
+            Also, during API call, if any error occurs, then that error will be logged on console by .catch() handler.
+            <br><br>
+            Lastly, this clickHandler() function is binded to Button with help of .addEventListner() method.
+        </p>
+        <div class="code">
+        <xmp>
+    btnTranslate.addEventListener("click", clickHandler);                  
+        </xmp>
+        </div>
+        <p>
+            Now, JavaScript will know that it has to run clickHandler() function every time it listens a click on Button.
+        </p>
+        <h2>
+            Create Styling
+        </h2>
+        <p>
+            Understanding styling of CSS is far wide beyond the scope of this Blog. So, I leave it up to you. One can create a beautiful app by using CSS styling. There is no limit to it. Therefor I am adding my CSS code here for your Reference
+        </p>
+        <div class="code">
+            <xmp>
+* {
+    box-sizing: border-box;
+    max-width: 600px;
+    min-width: 480px;
+    margin: auto;
+    color: var(--text-color);
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    margin: auto;
+    background-image: url(./images/background.svg);
+    background-attachment: fixed;
+    text-align: center;
+}
+
+:root {
+    --primary: #00f0ff;
+    --black: #333333;
+    --secondary: rgb(43, 43, 43);
+    --text-color: #bfbfbf;
+}
+
+.header{
+    margin : 10px;
+    padding : 20px;
+    color: var(--primary);
+    background-color: var(--secondary);
+    border-bottom-right-radius:20px;
+    
+
+}
+
+.header > h1{
+    color: var(--primary);
+}
+
+textarea {
+    width: 80%;
+    height: 10vh;
+    display: block;
+    margin: auto;
+    padding: 1rem;
+    font-size: large;
+    color: white;
+    background-color: var(--secondary);
+    text-align: center;
+    border: 1px solid var(--primary);
+    font-size: 20px;
+}
+
+#txt-output {
+    border: 1px solid var(--primary);
+    height: 10vh;
+    width: 80%;
+    margin: auto;
+    padding: 1rem;
+    font-size: large;
+    background-color: var(--secondary);
+    color: white;
+    font-size: 20px;
+}
+
+#btn-translate{
+    background-color: var(--primary);
+    margin: 10px;
+    padding: 20px;
+    font-size: large;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    color: var(--black);
+    min-width: 0;
+}
+
+.footer{
+    background-color: var(--secondary);
+    color: white;
+    padding : 20px;
+    margin: 10px;
+    position: fixed;
+    bottom: 0;
+    border-top-left-radius: 20px;
+}
+
+.footer-hero{
+    font-size: 32px;
+    margin-bottom: 30px;
+    color: var(--primary);
+}
+
+.footer-content{
+    font-size: 20px;
+}                        
+            </xmp>
+            </div>
+            <p>
+                <h4>
+                    You can check out whole code on my <a target="_blank" href="https://github.com/maharshimaniar/NEOG-LevelZero-bananaSpeak">GitHub.</a>
+                </h4>
+            </p>
+    </article>
+
+
+    <footer class="footer">
+        <div class="footer-header">Socialmedia Presence</div>
+        <hr />
+        <ul class="social-links list-non-bullet">
+            <li class="list-item-inline">
+                <a class="link" target="_blank" href="https://github.com/maharshimaniar">
+                    <img class="logo-image" src="./images/github-logo.svg">
+                </a>
+            </li>
+            <li class="list-item-inline">
+                <a class="link" target="_blank" href="https://twitter.com/maniarmaharshi">
+                    <img class="logo-image" src="./images/twitter-logo.svg">
+                </a>
+            </li>
+            <li class="list-item-inline">
+                <a class="link" target="_blank"
+                    href="https://www.linkedin.com/in/maharshi-maniyar-b0007515b?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BWntyMtLoQNSnwjLGe9oP0Q%3D%3D">
+                    <img class="logo-image" src="./images/linkedin-logo.svg">
+                </a>
+            </li>
+
+        </ul>
+    </footer>
+
+</body>
+
+</html>
